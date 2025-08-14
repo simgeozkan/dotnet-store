@@ -1,13 +1,17 @@
+
+@model List<Category>
+
+
+<style>
+.slider_nav {
+    max-height: 300px; /* menünün yüksekliği sınırlandırılır */
+    overflow-y: auto;  /* içerik taştığında dikey kaydırma çubuğu çıkar */
+}
+</style>
  <nav class="nav nav-pills flex-column flex-nowrap overflow-auto slider_nav">
-                            <a href="#" class="nav-link active">Elektronik</a>
-                            <a href="#" class="nav-link">Giyim</a>
-                            <a href="#" class="nav-link">Spor</a>
-                            <a href="#" class="nav-link">Kozmetik</a>
-                            <a href="#" class="nav-link">Kitap</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
-                            <a href="#" class="nav-link">Anne/Bebek</a>
+
+                    @foreach(var Category in Model){
+                          <a href="#" class="nav-link ">@Category.Name</a>  // kategorileri database den otomatik aldik elle olusturmadik
+                    }
+      
                         </nav>

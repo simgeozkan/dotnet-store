@@ -25,4 +25,30 @@ public ActionResult Index()
     return View(products);
 }
 
+
+public ActionResult List()
+{
+
+  var products=_context.Products.Where(i=>i.HomePage).ToList();
+
+
+    return View(products);
+}
+
+
+public ActionResult Details(int id)
+{
+    var product = _context.Products.FirstOrDefault(p => p.Id == id);
+
+
+    if (product == null)
+    {
+        return NotFound();
+    }
+
+
+    return View(product);
+}
+
+
 }

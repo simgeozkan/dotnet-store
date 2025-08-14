@@ -6,26 +6,35 @@ namespace dotnet_store.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    //dependincy injection
+    private readonly DataContext _context;
+
+    public HomeController(DataContext context) // bu bor constuctor,sinif adi ile ayni'donus degeri yok'class ornegi calistiginda calisir.
     {
-        _logger = logger;
+        _context = context; // _contect artik databasein bir referansini tutar yani butun tablolara erisebilir
     }
 
-    public IActionResult Index()
+
+    public ActionResult List()
     {
-        return View();
+        var products = _context.Products.ToList(); // burdada context ile products tablodun aerisip listeleme fonksoiyonu yardimiyla bunlari bir degiskene aliyoruz
+        return View(products);
     }
 
-    public IActionResult Privacy()
+    public ActionResult Index()
     {
-        return View();
+
+
+       var products = _context.Products.Where(product=>product.IsActive && product.HomePage).ToList(); // aktif ise burda sorgulama yapiliyor
+
+        var categories = _context.Categories.ToList();
+        ViewData["Categories"] = categories;
+
+
+        return View(products);
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+
+
 }
