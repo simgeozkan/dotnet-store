@@ -11,3 +11,4 @@ namespace dotnet_store.Models
     public List<Product> Products { get; set; } = new(); // urun tablosu ile baglanti kurduk
     }
 }
+

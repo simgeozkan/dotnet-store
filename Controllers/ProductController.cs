@@ -26,13 +26,21 @@ public ActionResult Index()
 }
 
 
-public ActionResult List()
+public ActionResult List(string url)
 {
 
-  var products=_context.Products.Where(i=>i.HomePage).ToList();
+  IQueryable<Product> query = _context.Products;
 
+    if (!string.IsNullOrEmpty(url))
+    {
+        query = query.Where(p => p.Category.Url == url);
+    }
 
+    var products = query.ToList();
+    
     return View(products);
+
+    
 }
 
 
@@ -43,8 +51,17 @@ public ActionResult Details(int id)
 
     if (product == null)
     {
-        return NotFound();
+        return RedirectToAction("List");
     }
+
+
+    var similarProducts = _context.Products
+        .Where(p => p.IsActive && p.CategoryId == product.CategoryId && p.Id != product.Id) // burda detyalari verilen urunu similar icinden cikariyoruz
+        
+        .Take(4)
+        .ToList();
+    ViewData["SimilarProducts"] = similarProducts;  // view datalar controller icinde doldurulan dictionarylerdir ve view icinde otomatik goruntulenir
+
 
 
     return View(product);

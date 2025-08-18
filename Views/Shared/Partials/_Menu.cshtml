@@ -11,7 +11,8 @@
  <nav class="nav nav-pills flex-column flex-nowrap overflow-auto slider_nav">
 
                     @foreach(var Category in Model){
-                          <a href="#" class="nav-link ">@Category.Name</a>  // kategorileri database den otomatik aldik elle olusturmadik
+
+                          <a href="/products/@Category.Url" class="nav-link ">@Category.Name</a>  // kategorileri database den otomatik aldik elle olusturmadik
                     }
       
                         </nav>
